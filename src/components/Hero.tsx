@@ -60,7 +60,7 @@ const Hero: React.FC = () => {
             
             <h1 className="hero-name">
               <span className="name-line">YUVARAJA</span>
-              <span className="name-line accent-line">SRINIVASAN</span>
+              <span className="name-line accent-line">Sivanantham</span>
             </h1>
             
             <div className="hero-title">
