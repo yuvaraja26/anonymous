@@ -15,7 +15,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 2500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -28,21 +28,9 @@ function App() {
             <div className="cyber-loader-inner"></div>
           </div>
           <div className="loading-text">
-            <span>I</span>
-            <span>N</span>
-            <span>I</span>
-            <span>T</span>
-            <span>I</span>
-            <span>A</span>
-            <span>L</span>
-            <span>I</span>
-            <span>Z</span>
-            <span>I</span>
-            <span>N</span>
-            <span>G</span>
-            <span>.</span>
-            <span>.</span>
-            <span>.</span>
+            {['I', 'N', 'I', 'T', 'I', 'A', 'L', 'I', 'Z', 'I', 'N', 'G', '.', '.', '.'].map((char, index) => (
+              <span key={index} style={{ animationDelay: `${index * 0.1}s` }}>{char}</span>
+            ))}
           </div>
         </div>
       </div>
