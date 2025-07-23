@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Menu, X } from 'lucide-react';
+import { Shield, Menu, X, Zap } from 'lucide-react';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -26,8 +26,12 @@ const Header: React.FC = () => {
     <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
       <div className="container">
         <div className="nav-logo">
-          <Shield className="logo-icon" />
-          <span className="logo-text">YUVARAJA<span className="accent">_S</span></span>
+          <div className="logo-container">
+            <Zap className="logo-icon" />
+            <span className="logo-text">
+              YUVARAJA<span className="accent">_S</span>
+            </span>
+          </div>
         </div>
         
         <nav className={`nav ${isMobileMenuOpen ? 'nav-open' : ''}`}>
@@ -54,44 +58,59 @@ const Header: React.FC = () => {
           position: fixed;
           top: 0;
           width: 100%;
-          background: rgba(10, 10, 10, 0.9);
-          backdrop-filter: blur(10px);
+          background: rgba(12, 12, 12, 0.8);
+          backdrop-filter: blur(20px);
           border-bottom: 1px solid rgba(255, 255, 255, 0.1);
           z-index: 1000;
-          transition: all 0.3s ease;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .header.scrolled {
-          background: rgba(10, 10, 10, 0.95);
+          background: rgba(12, 12, 12, 0.95);
           box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+          border-bottom: 1px solid rgba(79, 172, 254, 0.3);
         }
 
         .header .container {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 1rem 20px;
+          padding: 1.5rem 2rem;
+        }
+
+        .logo-container {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
         }
 
         .nav-logo {
-          display: flex;
-          align-items: center;
-          gap: 12px;
           font-size: 1.5rem;
-          font-weight: 700;
+          font-weight: 800;
           color: #fff;
         }
 
         .logo-icon {
           width: 32px;
           height: 32px;
-          color: #00ff41;
+          background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+          color: white;
+          border-radius: 8px;
+          padding: 6px;
+          animation: pulse 2s infinite;
+        }
+
+        .accent {
+          background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
         }
 
         .nav-menu {
           display: flex;
           list-style: none;
-          gap: 2rem;
+          gap: 2.5rem;
           margin: 0;
           padding: 0;
         }
@@ -102,28 +121,31 @@ const Header: React.FC = () => {
           color: #fff;
           text-decoration: none;
           font-weight: 500;
-          transition: all 0.3s ease;
+          font-size: 1rem;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           cursor: pointer;
-          font-size: 16px;
           position: relative;
+          padding: 0.5rem 0;
         }
 
-        .nav-link::after {
+        .nav-link::before {
           content: '';
           position: absolute;
-          bottom: -4px;
-          left: 0;
+          bottom: 0;
+          left: 50%;
           width: 0;
           height: 2px;
-          background: #00ff41;
-          transition: width 0.3s ease;
+          background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transform: translateX(-50%);
         }
 
         .nav-link:hover {
-          color: #00ff41;
+          color: #4facfe;
+          transform: translateY(-2px);
         }
 
-        .nav-link:hover::after {
+        .nav-link:hover::before {
           width: 100%;
         }
 
@@ -134,21 +156,37 @@ const Header: React.FC = () => {
           color: #fff;
           cursor: pointer;
           padding: 8px;
+          border-radius: 8px;
+          transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle:hover {
+          background: rgba(79, 172, 254, 0.1);
+          color: #4facfe;
+        }
+
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.05); }
         }
 
         @media (max-width: 768px) {
+          .header .container {
+            padding: 1rem 1rem;
+          }
+
           .nav {
             position: absolute;
             top: 100%;
             left: 0;
             width: 100%;
-            background: rgba(10, 10, 10, 0.98);
-            backdrop-filter: blur(10px);
+            background: rgba(12, 12, 12, 0.98);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             transform: translateY(-100%);
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           }
 
           .nav-open {
@@ -161,6 +199,11 @@ const Header: React.FC = () => {
             flex-direction: column;
             padding: 2rem;
             gap: 1.5rem;
+          }
+
+          .nav-link {
+            font-size: 1.1rem;
+            padding: 1rem 0;
           }
 
           .mobile-menu-toggle {
